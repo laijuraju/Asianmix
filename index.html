@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Product Management</h1>
+
+    <section id="add-product">
+        <h2>Add Product</h2>
+        <form id="add-product-form">
+            <label for="pid">PID:</label>
+            <input type="text" id="pid" name="pid" required>
+            <label for="product-name">Product Name:</label>
+            <input type="text" id="product-name" name="product-name" required>
+            <label for="packet-size">Packet Size:</label>
+            <input type="text" id="packet-size" name="packet-size" required>
+            <button type="submit">Add Product</button>
+        </form>
+        <div id="add-product-message"></div>
+    </section>
+
+    <section id="make-order">
+        <h2>Make an Order</h2>
+        <input type="text" id="search-bar" placeholder="Search for products...">
+        <ul id="product-list"></ul>
+        <form id="order-form">
+            <h3>Order List</h3>
+            <div id="order-list"></div>
+            <button type="button" id="save-order">Save Order</button>
+        </form>
+        <div id="order-message"></div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
