@@ -1,0 +1,41 @@
+name: Update Excel
+
+on:
+  workflow_dispatch:
+    inputs:
+      products:
+        description: 'Products JSON string'
+        required: true
+
+jobs:
+  update_excel:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas openpyxl
+
+      - name: Update Excel file
+        run: |
+          echo "${{ github.event.inputs.products }}" > products.json
+          python update_excel.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add products.xlsx
+          git commit -m 'Update products.xlsx'
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
