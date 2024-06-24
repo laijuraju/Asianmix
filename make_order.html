@@ -20,6 +20,67 @@
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
-    <script src="scripts.js"></script>
+    <script>
+        let productList = [];
+
+        async function loadExcel() {
+            const response = await fetch('products.xlsx');
+            const arrayBuffer = await response.arrayBuffer();
+            const data = new Uint8Array(arrayBuffer);
+            const workbook = XLSX.read(data, { type: 'array' });
+            const sheet = workbook.Sheets[workbook.SheetNames[0]];
+            productList = XLSX.utils.sheet_to_json(sheet);
+        }
+
+        document.getElementById('search-bar').addEventListener('input', function () {
+            const query = this.value.toLowerCase();
+            const filteredProducts = productList.filter(product => product['Product Name'].toLowerCase().includes(query));
+
+            const productListElement = document.getElementById('product-list');
+            productListElement.innerHTML = '';
+            filteredProducts.forEach(product => {
+                const li = document.createElement('li');
+                li.textContent = `${product.PID} - ${product['Product Name']}`;
+                li.addEventListener('click', () => addToOrder(product));
+                productListElement.appendChild(li);
+            });
+        });
+
+        function addToOrder(product) {
+            const orderList = document.getElementById('order-list');
+            const orderItem = document.createElement('div');
+            orderItem.innerHTML = `
+                <span>${product.PID}</span>
+                <span>${product['Product Name']}</span>
+                <input type="number" value="1" min="1">
+                <button type="button" onclick="removeFromOrder(this)">Delete</button>
+            `;
+            orderList.appendChild(orderItem);
+        }
+
+        function removeFromOrder(button) {
+            button.parentElement.remove();
+        }
+
+        document.getElementById('save-order').addEventListener('click', function () {
+            const orderItems = Array.from(document.getElementById('order-list').children);
+            const order = orderItems.map(item => {
+                const pid = item.children[0].innerText;
+                const productName = item.children[1].innerText;
+                const quantity = item.children[2].value;
+                return { pid, productName, quantity };
+            });
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.text('Order List', 10, 10);
+            order.forEach((item, index) => {
+                doc.text(`${item.pid} - ${item.productName} - Quantity: ${item.quantity}`, 10, 20 + index * 10);
+            });
+            doc.save('order.pdf');
+        });
+
+        window.onload = loadExcel;
+    </script>
 </body>
 </html>
