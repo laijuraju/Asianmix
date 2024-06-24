@@ -32,9 +32,8 @@ document.getElementById('add-product-form')?.addEventListener('submit', function
     saveExcel();
 
     document.getElementById('add-product-message').innerText = 'Product added successfully';
-    setTimeout(() => {
-        window.location.href = 'index.html';
-    }, 2000);
+    alert('Product added successfully');
+    window.location.href = 'index.html';
 });
 
 document.getElementById('search-bar')?.addEventListener('input', function () {
