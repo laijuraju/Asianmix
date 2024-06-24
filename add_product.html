@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Add Product</h1>
+    <section id="add-product">
+        <form id="add-product-form">
+            <label for="pid">PID:</label>
+            <input type="text" id="pid" name="pid" required>
+            <label for="product-name">Product Name:</label>
+            <input type="text" id="product-name" name="product-name" required>
+            <label for="packet-size">Packet Size:</label>
+            <input type="text" id="packet-size" name="packet-size" required>
+            <button type="submit">Save Product</button>
+        </form>
+        <div id="add-product-message"></div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>

@@ -68,3 +68,14 @@ button:hover {
 #order-list div input[type="number"] {
     width: 30%;
 }
+
+#order-list div button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#order-list div button:hover {
+    background-color: #c82333;
+}

@@ -17,7 +17,7 @@ function saveExcel() {
     XLSX.writeFile(workbook, 'products.xlsx');
 }
 
-document.getElementById('add-product-form').addEventListener('submit', function (e) {
+document.getElementById('add-product-form')?.addEventListener('submit', function (e) {
     e.preventDefault();
     const pid = document.getElementById('pid').value;
     const productName = document.getElementById('product-name').value;
@@ -32,10 +32,12 @@ document.getElementById('add-product-form').addEventListener('submit', function 
     saveExcel();
 
     document.getElementById('add-product-message').innerText = 'Product added successfully';
-    document.getElementById('add-product-form').reset();
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 2000);
 });
 
-document.getElementById('search-bar').addEventListener('input', function () {
+document.getElementById('search-bar')?.addEventListener('input', function () {
     const query = this.value.toLowerCase();
     const filteredProducts = productList.filter(product => product['Product Name'].toLowerCase().includes(query));
 
@@ -56,11 +58,16 @@ function addToOrder(product) {
         <span>${product.PID}</span>
         <span>${product['Product Name']}</span>
         <input type="number" value="1" min="1">
+        <button type="button" onclick="removeFromOrder(this)">Delete</button>
     `;
     orderList.appendChild(orderItem);
 }
 
-document.getElementById('save-order').addEventListener('click', function () {
+function removeFromOrder(button) {
+    button.parentElement.remove();
+}
+
+document.getElementById('save-order')?.addEventListener('click', function () {
     const orderItems = Array.from(document.getElementById('order-list').children);
     const order = orderItems.map(item => {
         const pid = item.children[0].innerText;
