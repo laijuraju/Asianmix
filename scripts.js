@@ -98,6 +98,7 @@ function showPreview() {
                 <td>${product.pid}</td>
                 <td>${product.productName}</td>
                 <td><input type="number" step="0.1" min="0" value="0.0"></td>
+                <td><button onclick="removeProductFromPreview(this)">Remove</button></td>
             `;
             previewTableBody.appendChild(row);
         });
@@ -115,8 +116,19 @@ function closePreview() {
     document.getElementById('productTableContainer').style.opacity = '1'; // Unfade table
 }
 
+// Remove product from preview
+function removeProductFromPreview(button) {
+    const row = button.closest('tr');
+    row.remove();
+    const previewTableBody = document.getElementById('previewTable').querySelector('tbody');
+    if (previewTableBody.rows.length === 0) {
+        document.getElementById('noDataMessage').style.display = 'block';
+    }
+}
+
 // Save preview to PDF
 function savePreviewToPDF() {
+    const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     const rows = [];
     const previewTableBody = document.getElementById('previewTable').querySelector('tbody');
