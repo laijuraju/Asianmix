@@ -133,7 +133,13 @@ button {
     color: red;
 }
 
-td button img {
+.remove-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.remove-button img {
     width: 16px;
     height: 16px;
 }
