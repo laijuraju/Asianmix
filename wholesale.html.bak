@@ -19,7 +19,6 @@
         <button onclick="toggleButtons(); showAddProducts()">Add Products</button>
         <div id="placeOrder" style="display:none;">
             <input type="text" id="searchBar" placeholder="Search products..." oninput="searchProducts()">
-            <button onclick="clearSearch()">Clear</button>
             <div id="searchResults"></div>
             <table id="orderTable">
                 <thead>

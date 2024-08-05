@@ -27,13 +27,15 @@ function showAddProducts() {
     document.getElementById('placeOrder').style.display = 'none';
 }
 
+
+
 // Load products from GitHub CSV file
 function loadProducts() {
     const url = 'https://raw.githubusercontent.com/laijuraju/laijuraju.github.io/main/products.csv';
     fetch(url)
         .then(response => response.text())
         .then(data => {
-            const rows = data.split('\n').slice(1);
+            const rows = data.split('\\n').slice(1);
             window.products = rows.map(row => {
                 const [pid, productName, packSize] = row.split(',');
                 return { pid, productName, packSize };
@@ -72,12 +74,6 @@ function searchProducts() {
         product.productName.toLowerCase().includes(query) && query.length >= 3
     );
     displaySearchResults(results);
-}
-
-// Clear search results
-function clearSearch() {
-    document.getElementById('searchBar').value = '';
-    document.getElementById('searchResults').innerHTML = '';
 }
 
 // Display search results
