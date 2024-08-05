@@ -88,22 +88,31 @@ function showPreview() {
     const previewTableBody = document.getElementById('previewTable').querySelector('tbody');
     previewTableBody.innerHTML = ''; // Clear previous preview data
 
-    selectedProducts.forEach(product => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${product.pid}</td>
-            <td>${product.productName}</td>
-            <td><input type="number" step="0.1" min="0" value="0.0"></td>
-        `;
-        previewTableBody.appendChild(row);
-    });
+    if (selectedProducts.length === 0) {
+        document.getElementById('noDataMessage').style.display = 'block';
+    } else {
+        document.getElementById('noDataMessage').style.display = 'none';
+        selectedProducts.forEach(product => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${product.pid}</td>
+                <td>${product.productName}</td>
+                <td><input type="number" step="0.1" min="0" value="0.0"></td>
+            `;
+            previewTableBody.appendChild(row);
+        });
+    }
 
-    document.getElementById('previewOverlay').style.display = 'block';
+    document.getElementById('searchBar').style.opacity = '0.3'; // Fade search bar
+    document.getElementById('productTableContainer').style.opacity = '0.3'; // Fade table
+    document.getElementById('previewOverlay').style.display = 'flex';
 }
 
 // Close the preview overlay
 function closePreview() {
     document.getElementById('previewOverlay').style.display = 'none';
+    document.getElementById('searchBar').style.opacity = '1'; // Unfade search bar
+    document.getElementById('productTableContainer').style.opacity = '1'; // Unfade table
 }
 
 // Save preview to PDF
