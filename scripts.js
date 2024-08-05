@@ -36,6 +36,7 @@ function displayProducts(products) {
             <td>${product.pid}</td>
             <td>${product.productName}</td>
             <td>${product.packSize}</td>
+            <td><button class="remove-button" onclick="removeProductFromPreview(this)"><img src="icons8-remove-button-78.png" alt="Remove"></button></td>
         `;
         tbody.appendChild(row);
     });

@@ -98,7 +98,7 @@ function showPreview() {
                 <td>${product.pid}</td>
                 <td>${product.productName}</td>
                 <td><input type="number" step="0.1" min="0" value="0.0"></td>
-                <td><button onclick="removeProductFromPreview(this)"><img src="icons8-remove-button-78.png" alt="Remove"></button></td>
+                <td><button class="remove-button" onclick="removeProductFromPreview(this)"><img src="icons8-remove-button-78.png" alt="Remove"></button></td>
             `;
             previewTableBody.appendChild(row);
         });
