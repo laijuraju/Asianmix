@@ -11,12 +11,13 @@
     <header>
         <img src="logo.png" alt="AsianMix Logo" class="logo">
         <h1>Wholesale Order</h1>
-        <button id="viewAllBtn" onclick="showAllProducts()">View All</button>
         <div id="time"></div>
     </header>
     <main>
-        <button onclick="toggleButtons(); showPlaceOrder()">Place an Order</button>
-        <button onclick="toggleButtons(); showAddProducts()">Add Products</button>
+        <button class="action-btn" id="placeOrderBtn" onclick="showPlaceOrder()">Place an Order</button>
+        <button class="action-btn" id="addProductsBtn" onclick="showAddProducts()">Add Products</button>
+        <button class="action-btn" id="viewAllBtn" onclick="showAllProducts()" style="display:none;">View All</button>
+
         <div id="placeOrder" style="display:none;">
             <input type="text" id="searchBar" placeholder="Search products..." oninput="searchProducts()">
             <div id="searchResults"></div>
@@ -35,21 +36,35 @@
             <button onclick="saveAsPDF()">Save as PDF</button>
             <button onclick="location.href='index.html'">Back</button>
         </div>
+
         <div id="addProducts" style="display:none;">
             <form onsubmit="addProduct(); return false;">
                 <label for="pid">PID:</label>
                 <input type="text" id="pid" name="pid" required>
                 <label for="productName">Product Name:</label>
                 <input type="text" id="productName" name="productName" required>
-                <label for="packSize">Pack Size:</label
+                <label for="packSize">Pack Size:</label>
                 <input type="text" id="packSize" name="packSize" required>
                 <button type="submit">Add Product</button>
             </form>
             <button onclick="location.href='index.html'">Back</button>
         </div>
+        
         <div id="allProductsOverlay" style="display:none;">
-            <button onclick="closeAllProducts()">Close</button>
-            <div id="allProducts"></div>
+            <div id="overlayContent">
+                <button onclick="closeAllProducts()">Close</button>
+                <h2>All Products</h2>
+                <table id="allProductsTable">
+                    <thead>
+                        <tr>
+                            <th>PID</th>
+                            <th>Product Name</th>
+                            <th>PackSize</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </main>
 </body>
