@@ -84,3 +84,8 @@ button {
 .highlight {
     background-color: yellow;
 }
+
+#searchResults div {
+    padding: 5px;
+    cursor: pointer;
+}

@@ -126,7 +126,7 @@ function clearSearch() {
 // Display search results
 function displaySearchResults(results) {
     const searchResults = document.getElementById('searchResults');
-    searchResults.innerHTML = '';
+    searchResults.innerHTML = ''; // Clear previous search results
     results.forEach(product => {
         const div = document.createElement('div');
         div.textContent = `${product.productName} (${product.packSize})`;
