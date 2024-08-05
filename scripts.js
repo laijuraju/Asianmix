@@ -27,6 +27,8 @@ function showAddProducts() {
     document.getElementById('placeOrder').style.display = 'none';
 }
 
+
+
 // Load products from GitHub CSV file
 function loadProducts() {
     const url = 'https://raw.githubusercontent.com/laijuraju/laijuraju.github.io/main/products.csv';
