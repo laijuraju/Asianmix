@@ -25,38 +25,37 @@ button {
     padding: 10px 20px;
     margin: 5px;
     cursor: pointer;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
 }
 
-#searchResults div {
-    padding: 5px;
-    cursor: pointer;
+#viewAllBtn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }
 
-#orderTable {
+#allProductsOverlay {
+    position: fixed;
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-#orderTable th, #orderTable td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-#orderTable th {
-    background-color: #f2f2f2;
-}
-
-form {
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    top: 0;
+    left: 0;
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    width: 300px;
 }
 
-form label {
-    margin-top: 10px;
+#allProductsOverlay > button {
+    margin-bottom: 20px;
 }
 
-form input {
-    padding: 5px;
+#allProducts {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
 }

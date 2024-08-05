@@ -7,13 +7,16 @@
     <link rel="stylesheet" href="styles.css">
     <script src="scripts.js" defer></script>
 </head>
-<body>
+<body onload="displayTime()">
     <header>
+        <img src="logo.png" alt="AsianMix Logo" class="logo">
         <h1>Wholesale Order</h1>
+        <button id="viewAllBtn" onclick="showAllProducts()">View All</button>
+        <div id="time"></div>
     </header>
     <main>
-        <button onclick="showPlaceOrder()">Place an Order</button>
-        <button onclick="showAddProducts()">Add Products</button>
+        <button onclick="toggleButtons(); showPlaceOrder()">Place an Order</button>
+        <button onclick="toggleButtons(); showAddProducts()">Add Products</button>
         <div id="placeOrder" style="display:none;">
             <input type="text" id="searchBar" placeholder="Search products..." oninput="searchProducts()">
             <div id="searchResults"></div>
@@ -38,11 +41,15 @@
                 <input type="text" id="pid" name="pid" required>
                 <label for="productName">Product Name:</label>
                 <input type="text" id="productName" name="productName" required>
-                <label for="packSize">Pack Size:</label>
+                <label for="packSize">Pack Size:</label
                 <input type="text" id="packSize" name="packSize" required>
                 <button type="submit">Add Product</button>
             </form>
             <button onclick="location.href='index.html'">Back</button>
+        </div>
+        <div id="allProductsOverlay" style="display:none;">
+            <button onclick="closeAllProducts()">Close</button>
+            <div id="allProducts"></div>
         </div>
     </main>
 </body>
