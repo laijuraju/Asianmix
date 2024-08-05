@@ -14,8 +14,10 @@
         <div id="time"></div>
     </header>
     <main>
-        <input type="text" id="searchBar" placeholder="Search products..." oninput="searchProducts()">
-        <button onclick="clearSearch()">Clear</button>
+        <div class="search-container">
+            <input type="text" id="searchBar" placeholder="Search products..." oninput="searchProducts()">
+            <button onclick="clearSearch()">Clear</button>
+        </div>
         <div id="productTableContainer">
             <table id="productTable">
                 <thead>

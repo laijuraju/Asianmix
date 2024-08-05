@@ -32,5 +32,27 @@
             </table>
         </div>
     </main>
+    <div class="bottom-buttons">
+        <button onclick="showPreview()">Preview</button>
+        <button id="topButton" onclick="scrollToTop()">Top &#x25B2;</button>
+    </div>
+    <div id="previewOverlay" class="overlay">
+        <div class="overlay-content">
+            <button class="close-button" onclick="closePreview()">Close</button>
+            <div id="previewTableContainer">
+                <table id="previewTable">
+                    <thead>
+                        <tr>
+                            <th>PID</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <button class="save-pdf-button" onclick="savePreviewToPDF()">Save to PDF</button>
+        </div>
+    </div>
 </body>
 </html>

@@ -67,3 +67,62 @@ function clearSearch() {
         row.classList.remove('highlight'); // Remove highlight
     });
 }
+
+// Scroll to top function
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Show preview of selected products
+function showPreview() {
+    const selectedProducts = [];
+    const rows = document.querySelectorAll('#productTable tbody tr');
+    rows.forEach(row => {
+        if (row.querySelector('input[type="checkbox"]').checked) {
+            const pid = row.cells[1].textContent;
+            const productName = row.cells[2].textContent;
+            selectedProducts.push({ pid, productName });
+        }
+    });
+
+    const previewTableBody = document.getElementById('previewTable').querySelector('tbody');
+    previewTableBody.innerHTML = ''; // Clear previous preview data
+
+    selectedProducts.forEach(product => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${product.pid}</td>
+            <td>${product.productName}</td>
+            <td><input type="number" step="0.1" min="0" value="0.0"></td>
+        `;
+        previewTableBody.appendChild(row);
+    });
+
+    document.getElementById('previewOverlay').style.display = 'block';
+}
+
+// Close the preview overlay
+function closePreview() {
+    document.getElementById('previewOverlay').style.display = 'none';
+}
+
+// Save preview to PDF
+function savePreviewToPDF() {
+    const doc = new jsPDF();
+    const rows = [];
+    const previewTableBody = document.getElementById('previewTable').querySelector('tbody');
+    for (const row of previewTableBody.rows) {
+        const cells = Array.from(row.cells).map(cell => cell.querySelector('input') ? cell.querySelector('input').value : cell.textContent);
+        rows.push(cells);
+    }
+
+    doc.text('Store Name', 14, 16);
+    doc.text(new Date().toLocaleString(), 14, 22);
+    doc.autoTable({
+        head: [['PID', 'Product Name', 'Quantity']],
+        body: rows,
+        startY: 30
+    });
+
+    doc.save('preview.pdf');
+}
