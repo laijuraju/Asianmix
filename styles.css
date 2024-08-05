@@ -21,9 +21,27 @@ main {
     padding: 20px;
 }
 
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa;
+    padding: 10px;
+    z-index: 1000;
+}
+
+#searchBar {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 300px;
+}
+
 button {
     padding: 10px 20px;
-    margin: 5px;
+    margin-left: 10px;
     cursor: pointer;
     background-color: #4CAF50; /* Green */
     color: white;

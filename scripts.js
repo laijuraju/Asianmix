@@ -45,7 +45,7 @@ function displayProducts(products) {
 function searchProducts() {
     const query = document.getElementById('searchBar').value.toLowerCase();
     const rows = document.querySelectorAll('#productTable tbody tr');
-
+    
     rows.forEach(row => {
         row.classList.remove('highlight');
         if (row.textContent.toLowerCase().includes(query)) {
