@@ -111,28 +111,25 @@ function searchProducts() {
     }
 
     const query = document.getElementById('searchBar').value.toLowerCase();
+    const searchResultsDiv = document.getElementById('searchResults');
+    searchResultsDiv.innerHTML = ''; // Clear previous search results
+
     const results = window.products.filter(product =>
-        product.productName.toLowerCase().includes(query) && query.length >= 3
+        product.productName.toLowerCase().includes(query)
     );
-    displaySearchResults(results);
+
+    results.forEach(product => {
+        const div = document.createElement('div');
+        div.textContent = `${product.productName} (${product.packSize})`;
+        div.onclick = () => addToOrder(product);
+        searchResultsDiv.appendChild(div);
+    });
 }
 
 // Clear search results
 function clearSearch() {
     document.getElementById('searchBar').value = '';
     document.getElementById('searchResults').innerHTML = '';
-}
-
-// Display search results
-function displaySearchResults(results) {
-    const searchResults = document.getElementById('searchResults');
-    searchResults.innerHTML = ''; // Clear previous search results
-    results.forEach(product => {
-        const div = document.createElement('div');
-        div.textContent = `${product.productName} (${product.packSize})`;
-        div.onclick = () => addToOrder(product);
-        searchResults.appendChild(div);
-    });
 }
 
 // Add product to order

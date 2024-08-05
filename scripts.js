@@ -7,25 +7,6 @@ function displayTime() {
     }, 1000);
 }
 
-// Show and hide the main buttons
-function toggleButtons() {
-    document.querySelectorAll('main > button').forEach(btn => {
-        btn.style.display = btn.style.display === 'none' ? 'block' : 'none';
-    });
-}
-
-// Show the place order section
-function showPlaceOrder() {
-    document.getElementById('placeOrder').style.display = 'block';
-    document.getElementById('addProducts').style.display = 'none';
-}
-
-// Show the add products section
-function showAddProducts() {
-    document.getElementById('addProducts').style.display = 'block';
-    document.getElementById('placeOrder').style.display = 'none';
-}
-
 // Load products from GitHub CSV file
 function loadProducts() {
     const url = 'https://raw.githubusercontent.com/laijuraju/laijuraju.github.io/main/products.csv';
@@ -37,35 +18,18 @@ function loadProducts() {
                 const [pid, productName, packSize] = row.split(',');
                 return { pid, productName, packSize };
             });
+            displayProducts(window.products);
         })
         .catch(error => {
             console.error('Error fetching products:', error);
         });
 }
 
-// Show all products in an overlay in tabular format with search
-function showAllProducts() {
-    if (!window.products || window.products.length === 0) {
-        console.error('Products data not loaded.');
-        return;
-    }
-
-    document.getElementById('viewAllSearchBar').value = ''; // Clear previous search text
-    const allProductsDiv = document.getElementById('allProducts');
-    allProductsDiv.innerHTML = ''; // Clear previous data
-    const table = document.createElement('table');
-    const thead = document.createElement('thead');
-    const tbody = document.createElement('tbody');
-
-    thead.innerHTML = `
-        <tr>
-            <th>PID</th>
-            <th>Product Name</th>
-            <th>Brand Name</th>
-        </tr>
-    `;
-
-    window.products.forEach(product => {
+// Display products in the table
+function displayProducts(products) {
+    const tbody = document.getElementById('productTable').querySelector('tbody');
+    tbody.innerHTML = ''; // Clear previous data
+    products.forEach(product => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${product.pid}</td>
@@ -74,36 +38,9 @@ function showAllProducts() {
         `;
         tbody.appendChild(row);
     });
-
-    table.appendChild(thead);
-    table.appendChild(tbody);
-    allProductsDiv.appendChild(table);
-    document.getElementById('allProductsOverlay').style.display = 'block';
 }
 
-// Close the all products overlay
-function closeAllProducts() {
-    document.getElementById('allProductsOverlay').style.display = 'none';
-}
-
-// Search products in "View All" overlay
-function searchInViewAll() {
-    const query = document.getElementById('viewAllSearchBar').value.toLowerCase();
-    const rows = document.querySelectorAll('#allProducts tbody tr');
-    
-    rows.forEach(row => {
-        row.classList.remove('highlight');
-        if (row.textContent.toLowerCase().includes(query)) {
-            row.classList.add('highlight');
-            row.style.display = ''; // Show matching rows
-            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else {
-            row.style.display = 'none'; // Hide non-matching rows
-        }
-    });
-}
-
-// Search products in the place order section
+// Search products dynamically
 function searchProducts() {
     if (!window.products || window.products.length === 0) {
         console.error('Products data not loaded.');
@@ -111,67 +48,14 @@ function searchProducts() {
     }
 
     const query = document.getElementById('searchBar').value.toLowerCase();
-    const searchResultsDiv = document.getElementById('searchResults');
-    searchResultsDiv.innerHTML = ''; // Clear previous search results
-
-    const results = window.products.filter(product =>
+    const filteredProducts = window.products.filter(product =>
         product.productName.toLowerCase().includes(query)
     );
-
-    results.forEach(product => {
-        const div = document.createElement('div');
-        div.textContent = `${product.productName} (${product.packSize})`;
-        div.onclick = () => addToOrder(product);
-        searchResultsDiv.appendChild(div);
-    });
+    displayProducts(filteredProducts);
 }
 
 // Clear search results
 function clearSearch() {
     document.getElementById('searchBar').value = '';
-    document.getElementById('searchResults').innerHTML = '';
-}
-
-// Add product to order
-function addToOrder(product) {
-    const tbody = document.getElementById('orderTable').querySelector('tbody');
-    const row = document.createElement('tr');
-    row.innerHTML = `
-        <td>${product.pid}</td>
-        <td>${product.productName}</td>
-        <td>${product.packSize}</td>
-        <td><input type="number" step="0.1" min="0" value="1"></td>
-    `;
-    tbody.appendChild(row);
-}
-
-// Clear selections
-function clearSelections() {
-    const tbody = document.getElementById('orderTable').querySelector('tbody');
-    tbody.innerHTML = '';
-}
-
-// Save as PDF
-function saveAsPDF() {
-    const doc = new jsPDF();
-    const rows = [];
-    const tbody = document.getElementById('orderTable').querySelector('tbody');
-    for (const row of tbody.rows) {
-        const cells = Array.from(row.cells).map(cell => cell.textContent || cell.querySelector('input').value);
-        rows.push(cells);
-    }
-    doc.autoTable({
-        head: [['PID', 'Product Name', 'PackSize', 'Quantity']],
-        body: rows
-    });
-    doc.save('order.pdf');
-}
-
-// Add product to Google Sheets
-function addProduct() {
-    const pid = document.getElementById('pid').value;
-    const productName = document.getElementById('productName').value;
-    const packSize = document.getElementById('packSize').value;
-    // Add logic to append to Google Sheets
-    alert('Product added successfully!');
+    displayProducts(window.products);
 }
