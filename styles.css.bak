@@ -54,10 +54,33 @@ button {
     margin-bottom: 20px;
 }
 
+#allProductsOverlay input[type="text"] {
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
 #allProducts {
     background: white;
     padding: 20px;
     border-radius: 5px;
     max-height: 70%;
     overflow-y: auto;
+    width: 80%;
+}
+
+#allProducts table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#allProducts th, #allProducts td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.highlight {
+    background-color: yellow;
 }

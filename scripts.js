@@ -49,15 +49,34 @@ function showAllProducts() {
         console.error('Products data not loaded.');
         return;
     }
-    
+
     const allProductsDiv = document.getElementById('allProducts');
-    allProductsDiv.innerHTML = '<table><thead><tr><th>PID</th><th>Product Name</th><th>PackSize</th></tr></thead><tbody>';
-    
+    allProductsDiv.innerHTML = ''; // Clear previous data
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+
+    thead.innerHTML = `
+        <tr>
+            <th>PID</th>
+            <th>Product Name</th>
+            <th>PackSize</th>
+        </tr>
+    `;
+
     window.products.forEach(product => {
-        allProductsDiv.innerHTML += `<tr><td>${product.pid}</td><td>${product.productName}</td><td>${product.packSize}</td></tr>`;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${product.pid}</td>
+            <td>${product.productName}</td>
+            <td>${product.packSize}</td>
+        `;
+        tbody.appendChild(row);
     });
 
-    allProductsDiv.innerHTML += '</tbody></table>';
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    allProductsDiv.appendChild(table);
     document.getElementById('allProductsOverlay').style.display = 'block';
 }
 

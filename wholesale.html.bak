@@ -50,6 +50,7 @@
         </div>
         <div id="allProductsOverlay" style="display:none;">
             <button onclick="closeAllProducts()">Close</button>
+            <input type="text" id="viewAllSearchBar" placeholder="Search products..." oninput="searchInViewAll()">
             <div id="allProducts"></div>
         </div>
     </main>
