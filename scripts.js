@@ -43,33 +43,27 @@ function displayProducts(products) {
 
 // Search products dynamically and highlight matching results
 function searchProducts() {
-    if (!window.products || window.products.length === 0) {
-        console.error('Products data not loaded.');
-        return;
-    }
-
     const query = document.getElementById('searchBar').value.toLowerCase();
-    const tbody = document.getElementById('productTable').querySelector('tbody');
-    tbody.innerHTML = ''; // Clear previous search results
+    const rows = document.querySelectorAll('#productTable tbody tr');
 
-    const filteredProducts = window.products.filter(product =>
-        product.productName.toLowerCase().includes(query)
-    );
-
-    filteredProducts.forEach(product => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td><input type="checkbox"></td>
-            <td>${product.pid}</td>
-            <td class="${query ? 'highlight' : ''}">${product.productName}</td>
-            <td>${product.packSize}</td>
-        `;
-        tbody.appendChild(row);
+    rows.forEach(row => {
+        row.classList.remove('highlight');
+        if (row.textContent.toLowerCase().includes(query)) {
+            row.classList.add('highlight');
+            row.style.display = ''; // Show matching rows
+            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            row.style.display = 'none'; // Hide non-matching rows
+        }
     });
 }
 
 // Clear search results and display all products
 function clearSearch() {
     document.getElementById('searchBar').value = '';
-    displayProducts(window.products);
+    const rows = document.querySelectorAll('#productTable tbody tr');
+    rows.forEach(row => {
+        row.style.display = ''; // Show all rows
+        row.classList.remove('highlight'); // Remove highlight
+    });
 }
