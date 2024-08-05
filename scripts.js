@@ -43,7 +43,7 @@ function loadProducts() {
         });
 }
 
-// Show all products in an overlay
+// Show all products in an overlay in tabular format with search
 function showAllProducts() {
     if (!window.products || window.products.length === 0) {
         console.error('Products data not loaded.');
@@ -51,12 +51,13 @@ function showAllProducts() {
     }
     
     const allProductsDiv = document.getElementById('allProducts');
-    allProductsDiv.innerHTML = '';
+    allProductsDiv.innerHTML = '<table><thead><tr><th>PID</th><th>Product Name</th><th>PackSize</th></tr></thead><tbody>';
+    
     window.products.forEach(product => {
-        const div = document.createElement('div');
-        div.textContent = `${product.productName} (${product.packSize})`;
-        allProductsDiv.appendChild(div);
+        allProductsDiv.innerHTML += `<tr><td>${product.pid}</td><td>${product.productName}</td><td>${product.packSize}</td></tr>`;
     });
+
+    allProductsDiv.innerHTML += '</tbody></table>';
     document.getElementById('allProductsOverlay').style.display = 'block';
 }
 
@@ -65,7 +66,21 @@ function closeAllProducts() {
     document.getElementById('allProductsOverlay').style.display = 'none';
 }
 
-// Search products
+// Search products in "View All" overlay
+function searchInViewAll() {
+    const query = document.getElementById('viewAllSearchBar').value.toLowerCase();
+    const rows = document.querySelectorAll('#allProducts tbody tr');
+    
+    rows.forEach(row => {
+        row.classList.remove('highlight');
+        if (row.textContent.toLowerCase().includes(query)) {
+            row.classList.add('highlight');
+            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    });
+}
+
+// Search products in the place order section
 function searchProducts() {
     if (!window.products || window.products.length === 0) {
         console.error('Products data not loaded.');

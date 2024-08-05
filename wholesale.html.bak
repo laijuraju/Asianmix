@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <script src="scripts.js" defer></script>
 </head>
-<body onload="displayTime()">
+<body onload="displayTime(); loadProducts();">
     <header>
         <img src="logo.png" alt="AsianMix Logo" class="logo">
         <h1>Wholesale Order</h1>
