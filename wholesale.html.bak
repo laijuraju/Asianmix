@@ -27,6 +27,7 @@
                         <th>PID</th>
                         <th>Product Name</th>
                         <th>PackSize</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -40,6 +41,7 @@
     <div id="previewOverlay" class="overlay">
         <div class="overlay-content">
             <button class="close-button" onclick="closePreview()"><img src="icons8-no-16.png" alt="Close"></button>
+            <br>
             <div id="previewTableContainer">
                 <table id="previewTable">
                     <thead>
@@ -47,7 +49,7 @@
                             <th>PID</th>
                             <th>Product Name</th>
                             <th>Quantity</th>
-                            <th>Remove</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody></tbody>

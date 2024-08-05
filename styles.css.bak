@@ -119,8 +119,8 @@ button {
 }
 
 .close-button img {
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
 }
 
 .save-pdf-button {
@@ -140,6 +140,6 @@ button {
 }
 
 .remove-button img {
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
 }
