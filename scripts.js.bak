@@ -50,6 +50,7 @@ function showAllProducts() {
         return;
     }
 
+    document.getElementById('viewAllSearchBar').value = ''; // Clear previous search text
     const allProductsDiv = document.getElementById('allProducts');
     allProductsDiv.innerHTML = ''; // Clear previous data
     const table = document.createElement('table');
@@ -60,7 +61,7 @@ function showAllProducts() {
         <tr>
             <th>PID</th>
             <th>Product Name</th>
-            <th>PackSize</th>
+            <th>Brand Name</th>
         </tr>
     `;
 
@@ -94,7 +95,10 @@ function searchInViewAll() {
         row.classList.remove('highlight');
         if (row.textContent.toLowerCase().includes(query)) {
             row.classList.add('highlight');
+            row.style.display = ''; // Show matching rows
             row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            row.style.display = 'none'; // Hide non-matching rows
         }
     });
 }
