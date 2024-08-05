@@ -46,18 +46,19 @@ function loadProducts() {
 
 // Show all products in an overlay
 function showAllProducts() {
+    if (!window.products || window.products.length === 0) {
+        console.error('Products data not loaded.');
+        return;
+    }
+    
     const allProductsDiv = document.getElementById('allProducts');
     allProductsDiv.innerHTML = '';
-    if (window.products) {
-        window.products.forEach(product => {
-            const div = document.createElement('div');
-            div.textContent = `${product.productName} (${product.packSize})`;
-            allProductsDiv.appendChild(div);
-        });
-        document.getElementById('allProductsOverlay').style.display = 'block';
-    } else {
-        console.error('Products data not loaded.');
-    }
+    window.products.forEach(product => {
+        const div = document.createElement('div');
+        div.textContent = `${product.productName} (${product.packSize})`;
+        allProductsDiv.appendChild(div);
+    });
+    document.getElementById('allProductsOverlay').style.display = 'block';
 }
 
 // Close the all products overlay
@@ -67,6 +68,11 @@ function closeAllProducts() {
 
 // Search products
 function searchProducts() {
+    if (!window.products || window.products.length === 0) {
+        console.error('Products data not loaded.');
+        return;
+    }
+
     const query = document.getElementById('searchBar').value.toLowerCase();
     const results = window.products.filter(product =>
         product.productName.toLowerCase().includes(query) && query.length >= 3
