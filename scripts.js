@@ -18,7 +18,6 @@ function toggleButtons() {
 function showPlaceOrder() {
     document.getElementById('placeOrder').style.display = 'block';
     document.getElementById('addProducts').style.display = 'none';
-    loadProducts();
 }
 
 // Show the add products section
