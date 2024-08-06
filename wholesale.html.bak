@@ -27,7 +27,6 @@
                         <th>PID</th>
                         <th>Product Name</th>
                         <th>PackSize</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody></tbody>
