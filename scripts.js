@@ -137,13 +137,18 @@ function savePreviewToPDF() {
         rows.push(cells);
     }
 
-    doc.text('Store Name', 14, 16);
-    doc.text(new Date().toLocaleString(), 14, 22);
+    const now = new Date();
+    const formattedDate = now.toISOString().slice(0, 10);
+    const formattedTime = now.toTimeString().split(' ')[0].replace(/:/g, '-');
+    const filename = `AsianMix_${formattedDate}_${formattedTime}.pdf`;
+
+    doc.text('Store Name: AsianMix', 14, 16);
+    doc.text(`Date: ${formattedDate}`, 14, 22);
     doc.autoTable({
         head: [['PID', 'Product Name', 'Quantity']],
         body: rows,
         startY: 30
     });
 
-    doc.save('preview.pdf');
+    doc.save(filename);
 }
